@@ -8,18 +8,30 @@ public class NetSpawner : MonoBehaviour
     [SerializeField] BoxCollider tableCollider;
     GameObject net = null;
 
-    private void OnEnable()
+    private void Start()
     {
-        SpawnNet();
+        if(transform.childCount < 1)
+        {
+            SpawnNet();
+        }
     }
 
-    public void SpawnNet()
+    void SpawnNet()
     {
         net = Instantiate(netPrefab, this.transform);
-        tableCollider = transform.parent.GetComponentInChildren<BoxCollider>();
-        Vector3 currentSize = net.transform.localScale;
-        float scaleValue = tableCollider.size.z / currentSize.z;
-        Vector3 newSize = new Vector3(currentSize.x * scaleValue, currentSize.y * scaleValue, currentSize.z * scaleValue);
-        net.transform.localScale = newSize;
+        MeshRenderer renderer = net.GetComponentInChildren<MeshRenderer>();
+        renderer.enabled = false;
+        RescaleNet();
+    }
+
+    void RescaleNet()
+    {
+        if(net != null)
+        {
+            Vector3 currentSize = net.transform.localScale;
+            float scaleValue = tableCollider.size.z / currentSize.z;
+            Vector3 newSize = new Vector3(currentSize.x * scaleValue, currentSize.y * scaleValue, currentSize.z * scaleValue);
+            net.transform.localScale = newSize;
+        }
     }
 }

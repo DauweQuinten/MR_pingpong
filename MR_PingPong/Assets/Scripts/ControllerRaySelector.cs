@@ -129,17 +129,24 @@ public class ControllerRaySelector : MonoBehaviour
 
     void HighlightMRUKAnchor(MRUKAnchor anchor, bool isHighlighted)
     {
-        MeshRenderer renderer = anchor?.gameObject.GetComponentInChildren<MeshRenderer>();
-        if (!renderer) return;
+        MeshRenderer[] renderers = anchor?.gameObject.GetComponentsInChildren<MeshRenderer>();
+        if (!anchor || renderers.Length < 1) return;
 
         if (isHighlighted)
         {
-            renderer.material = highlightMaterial;
-            renderer.enabled = true;
+            foreach(MeshRenderer renderer in renderers)
+            {
+                renderer.material = highlightMaterial;
+                renderer.enabled = true;
+            }
         }
         else
         {
-            renderer.enabled = false;
+            foreach (MeshRenderer renderer in renderers)
+            {
+                renderer.material = highlightMaterial;
+                renderer.enabled = false;
+            }
         }
     }
 
