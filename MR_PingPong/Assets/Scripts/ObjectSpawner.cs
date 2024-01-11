@@ -14,21 +14,12 @@ public class ObjectSpawner : MonoBehaviour
     BoxCollider tabelCollider;
     [SerializeField, Tooltip("Another box collider around the tabel, this will only indicate the size of the table prefab and will be disabled afterwards!")]
     BoxCollider tableBounds;
+    [SerializeField, Tooltip("If true, debug spheres will spawn at the scaled spawn locations")]
+    bool debugModeActive = false;
 
     Vector3 initTableSize;
     Vector3 currentTableSize;
     Vector3 tableScaleValues;
-
-
-    private void Awake()
-    {
-        //tableScaleValues = CalculateScaleValues();
-        //Vector3 scaledSpawnPos = CalculateScaledSpawnCoordinates();
-        //spawnLocation.position = scaledSpawnPos;
-        //DrawDebugSphere(spawnLocation.position);
-        RescaleSpawnCoordinates();
-        SpawnObjectAtLocation(prefabToSpawn, spawnLocation);
-    }
 
     Vector3 CalculateScaleValues()
     {
@@ -53,11 +44,17 @@ public class ObjectSpawner : MonoBehaviour
         return newSpawnPosition;
     }
 
-    void RescaleSpawnCoordinates()
+    private void Start()
+    {
+        SpawnObjectAtSpawnPoint();
+    }
+
+
+    public void RescaleSpawnCoordinates()
     {
         tableScaleValues = CalculateScaleValues();
         spawnLocation.position = CalculateScaledSpawnCoordinates();
-        DrawDebugSphere(spawnLocation.position);
+        if(debugModeActive) DrawDebugSphere(spawnLocation.position);  
     }
 
     void DrawDebugSphere(Vector3 position)
@@ -70,18 +67,19 @@ public class ObjectSpawner : MonoBehaviour
         debugSphere.transform.localPosition = position;
     }
 
-    GameObject SpawnObjectAtLocation(GameObject objectToSpawn, Transform spawnLocation)
+    public GameObject SpawnObjectAtSpawnPoint()
     {
-        if (objectToSpawn == null)
+        RescaleSpawnCoordinates();
+        
+        if (prefabToSpawn == null)
         {
             return null;
         }
 
-        GameObject spawnedObject = Instantiate(objectToSpawn);
+        GameObject spawnedObject = Instantiate(prefabToSpawn);
         spawnedObject.transform.SetParent(transform);
         spawnedObject.transform.localPosition = spawnLocation.position;
         spawnedObject.transform.rotation = spawnLocation.rotation;
-        //spawnedObject.transform.SetParent(spawnLocation.transform, false);
         return spawnedObject;
     }
 }
