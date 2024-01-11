@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,9 +8,8 @@ public class PlaceableObject : MonoBehaviour
 {
     [HideInInspector] public bool isPlaced = false;
     [SerializeField] Material originalMaterial = null;
-    MeshRenderer[] renderers;
 
-    public void PlaceObject()
+    public GameObject PlaceObject()
     {
         if (!isPlaced)
         {
@@ -20,7 +20,9 @@ public class PlaceableObject : MonoBehaviour
 
             // Destroy this object
             Destroy(gameObject);
+            return copy;
         }
+        return null;
     }
 
     void SetMaterials(GameObject newObject)

@@ -44,12 +44,6 @@ public class ObjectSpawner : MonoBehaviour
         return newSpawnPosition;
     }
 
-    private void Start()
-    {
-        SpawnObjectAtSpawnPoint();
-    }
-
-
     public void RescaleSpawnCoordinates()
     {
         tableScaleValues = CalculateScaleValues();
@@ -67,7 +61,7 @@ public class ObjectSpawner : MonoBehaviour
         debugSphere.transform.localPosition = position;
     }
 
-    public GameObject SpawnObjectAtSpawnPoint()
+    public GameObject SpawnObjectAtRescaledSpawnPoint()
     {
         RescaleSpawnCoordinates();
         
