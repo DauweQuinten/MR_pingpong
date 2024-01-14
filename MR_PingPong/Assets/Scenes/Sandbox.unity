@@ -1913,6 +1913,7 @@ GameObject:
   m_Component:
   - component: {fileID: 115913681}
   - component: {fileID: 115913682}
+  - component: {fileID: 115913683}
   m_Layer: 0
   m_Name: Direct Interactor Left
   m_TagString: Untagged
@@ -1947,6 +1948,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12caa3c0fa01fad4180d65ec3572cf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &115913683
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115913680}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.047549836
+  m_Center: {x: 0, y: -0.0030224547, z: 0.0044821464}
 --- !u!1 &116839755
 GameObject:
   m_ObjectHideFlags: 0
@@ -17460,7 +17482,7 @@ MonoBehaviour:
     Callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1575822274}
+        - m_Target: {fileID: 115913682}
           m_TargetAssemblyTypeName: DirectInteractorWithControllers, Assembly-CSharp
           m_MethodName: Release
           m_Mode: 1
@@ -17498,7 +17520,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1575822274}
           m_TargetAssemblyTypeName: DirectInteractorWithControllers, Assembly-CSharp
-          m_MethodName: Grab
+          m_MethodName: Release
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -20499,6 +20521,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1575822273}
   - component: {fileID: 1575822274}
+  - component: {fileID: 1575822275}
   m_Layer: 0
   m_Name: Direct Interactor Right
   m_TagString: Untagged
@@ -20533,6 +20556,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12caa3c0fa01fad4180d65ec3572cf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &1575822275
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575822272}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.047549836
+  m_Center: {x: 0, y: -0.0030224547, z: 0.0044821464}
 --- !u!1 &1580646039
 GameObject:
   m_ObjectHideFlags: 0

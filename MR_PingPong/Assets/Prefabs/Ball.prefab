@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1291743089180749405}
   - component: {fileID: 1291743089180749406}
   - component: {fileID: 1291743089180749402}
+  - component: {fileID: 8026975604685140338}
+  - component: {fileID: 55175930671332262}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -133,3 +135,36 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &8026975604685140338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291743089180749407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ed970418df8b184c9f9861a06ff43da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &55175930671332262
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291743089180749407}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1068285, y: 1.1068292, z: 1.0997068}
+  m_Center: {x: 0.0035607815, y: 0.010682866, z: 0.0071218982}

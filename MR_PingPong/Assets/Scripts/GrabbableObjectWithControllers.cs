@@ -7,9 +7,15 @@ using UnityEngine;
 public class GrabbableObjectWithControllers : MonoBehaviour
 {
     private bool _isGrabbed;
+    private DirectInteractorWithControllers _interactor;
 
-    public void SetGrabbedState(bool isGrabbed)
+    public void SetGrabbedState(bool isGrabbed, DirectInteractorWithControllers interactor)
     {
+        if (_isGrabbed)
+        {
+            _interactor.ResetGrabbedRigidbody();
+        }
         _isGrabbed = isGrabbed;
+        _interactor = interactor;
     }
 }
