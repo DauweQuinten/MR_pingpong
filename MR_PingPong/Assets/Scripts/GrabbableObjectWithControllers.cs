@@ -1,3 +1,4 @@
+using Oculus.Interaction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,19 @@ public class GrabbableObjectWithControllers : MonoBehaviour
 
     public void SetGrabbedState(bool isGrabbed, DirectInteractorWithControllers interactor)
     {
-        if (_isGrabbed)
+        if (_isGrabbed && isGrabbed)
         {
             _interactor.ResetGrabbedRigidbody();
         }
         _isGrabbed = isGrabbed;
         _interactor = interactor;
+    }
+
+    public void Release(Vector3 releaseVelocity)
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        rb.velocity = releaseVelocity;
+        rb.transform.SetParent(null);
     }
 }
