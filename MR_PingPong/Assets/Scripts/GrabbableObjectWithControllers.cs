@@ -14,10 +14,18 @@ public class GrabbableObjectWithControllers : MonoBehaviour
     {
         if (_isGrabbed && isGrabbed)
         {
-            _interactor.ResetGrabbedRigidbody();
+            _interactor.ResetGrabbable();
         }
         _isGrabbed = isGrabbed;
         _interactor = interactor;
+    }
+
+    public void Grab()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+        transform.SetParent(_interactor.transform);
     }
 
     public void Release(Vector3 releaseVelocity)

@@ -5,7 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class DirectInteractorWithControllers : MonoBehaviour
 {
-    private Rigidbody grabbedRigidbody = null;
     private List<GameObject> objectsInRange = new List<GameObject>();
     private GrabbableObjectWithControllers grabbable = null;
     private Vector3 controllerVelocity = Vector3.zero;
@@ -14,33 +13,22 @@ public class DirectInteractorWithControllers : MonoBehaviour
 
     public void Grab()
     {
-        if (grabbedRigidbody || objectsInRange.Count == 0) return;
+        if (grabbable || objectsInRange.Count == 0) return;
         
         GameObject objectToGrab = objectsInRange.ToArray()[0];
         if(objectToGrab.TryGetComponent(out grabbable))
         {
             grabbable.SetGrabbedState(true, this);
-
-            objectToGrab.transform.SetParent(transform);
-            grabbedRigidbody = objectToGrab.GetComponent<Rigidbody>();
-            grabbedRigidbody.isKinematic = true;
-            grabbedRigidbody.velocity = Vector3.zero;          
+            grabbable.Grab();       
         }  
     }
 
     public void Release()
     {
-        if (grabbedRigidbody == null) return;
-
-        //grabbable.SetGrabbedState(false, this);
-        //grabbedRigidbody.isKinematic = false;
-        //grabbedRigidbody.velocity = controllerVelocity * velocityMultiplier;
-        //grabbedRigidbody.transform.SetParent(null);
-        //grabbedRigidbody = null;
-
+        if (grabbable == null) return;
+        grabbable.SetGrabbedState(false, this);
         grabbable.Release(controllerVelocity * velocityMultiplier);
         grabbable = null;
-        grabbedRigidbody = null;
     }
 
 
@@ -66,8 +54,8 @@ public class DirectInteractorWithControllers : MonoBehaviour
         }
     }
 
-    public void ResetGrabbedRigidbody()
+    public void ResetGrabbable()
     {
-        grabbedRigidbody = null;
+        grabbable = null;
     }
 }
