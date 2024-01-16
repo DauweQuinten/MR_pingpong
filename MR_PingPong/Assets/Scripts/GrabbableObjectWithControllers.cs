@@ -23,8 +23,8 @@ public class GrabbableObjectWithControllers : MonoBehaviour
     public void Grab()
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
         rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
         transform.SetParent(_interactor.transform);
     }
 

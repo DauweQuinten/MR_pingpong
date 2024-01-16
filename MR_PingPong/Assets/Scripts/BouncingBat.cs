@@ -31,17 +31,33 @@ public class BouncingBat : MonoBehaviour
                 {
                     // **** TODO ****
                     // De onderstaande berekening is vermoedelijk niet volledig correct volgens de wetten van de fysica.
-
-                    
                     Vector3 ballVelocity = ballRb.velocity;
+                    Vector3 normal = collision.GetContact(0).normal;
+                    Vector3 reflectedVelocity = Vector3.Reflect(ballVelocity, normal);                   
+                    //Vector3 BounceOfDirection = reflectedVelocity.normalized;
+                    
                     //Vector3 bounceForce = (_velocity - ballVelocity) * _bounceMultiplier;
-                    Vector3 bounceForce = _velocity * _bounceMultiplier;
+                    Vector3 bounceVelocity = _velocity + reflectedVelocity;
+                    ballRb.velocity = Vector3.zero;
+                    //ballRb.velocity = bounceVelocity;
+                    ballRb.AddForceAtPosition(bounceVelocity, collision.GetContact(0).point, ForceMode.Impulse);
+                    Debug.Log($"Velocity of the ball after bouncing: {ballRb.velocity}");
 
-                    ballRb.velocity = bounceForce;
-                    //ballRb.AddForce(bounceForce, ForceMode.Impulse);
-                    Debug.Log($"Added force to ball: {bounceForce}");
+                    DebugDrawDirectionOfVector(collision.GetContact(0).point, reflectedVelocity.normalized, Color.blue, 1f);
+                    DebugDrawDirectionOfVector(collision.GetContact(0).point, _velocity.normalized, Color.green, 1f);
+                    DebugDrawDirectionOfVector(collision.GetContact(0).point, bounceVelocity.normalized, Color.red, 1f);
+
+                    DebugDrawDirectionOfVector(collision.GetContact(0).point, ballRb.velocity.normalized, Color.cyan, 1f);
                 }
             }
         }
+    }
+
+    private void DebugDrawDirectionOfVector(Vector3 startPosition, Vector3 direction, Color color, float size = float.PositiveInfinity)
+    {   
+        GameObject impactPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        impactPoint.transform.position = startPosition;
+        impactPoint.transform.localScale *= 0.1f;
+        Debug.DrawLine(startPosition, (startPosition + direction)*size, color, float.PositiveInfinity);
     }
 }
