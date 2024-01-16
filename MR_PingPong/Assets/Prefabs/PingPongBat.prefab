@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 3617023067559748088}
   - component: {fileID: 6993727638598655233}
   - component: {fileID: 726079139407410118}
-  - component: {fileID: 726079139407410117}
+  - component: {fileID: 8075359539187036182}
   - component: {fileID: 7932521414951722830}
   - component: {fileID: -614437304941303498}
-  - component: {fileID: 5710328025153302400}
+  - component: {fileID: 841392705934208982}
   m_Layer: 0
   m_Name: PingPongBat
   m_TagString: Untagged
@@ -118,9 +118,9 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 1
---- !u!64 &726079139407410117
-MeshCollider:
+  m_CollisionDetection: 2
+--- !u!65 &8075359539187036182
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,10 +137,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3758573805739257388, guid: c724c2cfb7e6cb247b2e89d44ad42631, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.029483013, y: 0.002352921, z: 0.020000005}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &7932521414951722830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -174,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ed970418df8b184c9f9861a06ff43da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5710328025153302400
+--- !u!114 &841392705934208982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
