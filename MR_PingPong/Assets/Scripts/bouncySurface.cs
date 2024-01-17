@@ -12,7 +12,15 @@ using UnityEngine;
 public class bouncySurface : MonoBehaviour
 {
     [SerializeField, Range(0, 1)] private float _bounciness = 0.5f;
+    private Vector3 _velocity = Vector3.zero;
+    private Vector3 _prevPos = Vector3.zero;
 
+    private void FixedUpdate()
+    {
+        _velocity = (transform.position - _prevPos) / Time.fixedDeltaTime;
+        _prevPos = transform.position;
+    }
+     
     /// <summary>
     /// Get the current bounciness of the surface
     /// </summary>
@@ -31,5 +39,23 @@ public class bouncySurface : MonoBehaviour
     {
         if (value > 1 || value < 0) return -1;
         else return value;
+    }
+
+    /// <summary>
+    /// Get the current velocity of the surface
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetSurfaceVelocity()
+    {
+        return _velocity;
+    }
+    
+    /// <summary>
+    /// Get the current speed of the surface
+    /// </summary>
+    /// <returns></returns>
+    public float GetSurfaceSpeed()
+    {
+        return _velocity.magnitude;
     }
 }
