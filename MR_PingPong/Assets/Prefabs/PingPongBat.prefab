@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 8075359539187036182}
   - component: {fileID: 7932521414951722830}
   - component: {fileID: -614437304941303498}
-  - component: {fileID: 841392705934208982}
   m_Layer: 0
   m_Name: PingPongBat
-  m_TagString: Untagged
+  m_TagString: Bouncy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,17 +170,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ed970418df8b184c9f9861a06ff43da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &841392705934208982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8733148417151412701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b4538334673a584c8840880d0e2eb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
