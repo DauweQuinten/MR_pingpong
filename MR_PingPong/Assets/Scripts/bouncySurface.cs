@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 /// <summary>
@@ -14,10 +15,16 @@ public class bouncySurface : MonoBehaviour
     [SerializeField, Range(0, 1)] private float _bounciness = 0.5f;
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _prevPos = Vector3.zero;
+    private AudioSource _audioSource = null;
+
+    private void Start()
+    {
+        TryGetComponent(out _audioSource);
+    }
 
     private void FixedUpdate()
     {
-        _velocity = (transform.position - _prevPos) / Time.fixedDeltaTime;
+        _velocity = (transform.position - _prevPos) / Time.deltaTime;
         _prevPos = transform.position;
     }
      
@@ -57,5 +64,14 @@ public class bouncySurface : MonoBehaviour
     public float GetSurfaceSpeed()
     {
         return _velocity.magnitude;
+    }
+
+    /// <summary>
+    /// Play audio if this surface has an audiosource
+    /// </summary>
+    public void PlayAudio()
+    {
+        if (_audioSource == null) return;
+        _audioSource.Play();
     }
 }

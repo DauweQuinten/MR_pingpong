@@ -22,7 +22,7 @@ public class BouncingBall : MonoBehaviour
     private void Start()
     {
         // Give the object time to spawn without bouncing away
-        StartCoroutine(enableBounceAfterSeconds(1f));
+        StartCoroutine(EnableBounceAfterSeconds(1f));
         ballRb = GetComponent<Rigidbody>();
     }
 
@@ -43,7 +43,8 @@ public class BouncingBall : MonoBehaviour
             {
                 Vector3 bounceVelocity = CalculateBounceVelocity(collision, ballVelocity, surface);
                 Vector3 surfaceVelocity = surface.GetSurfaceVelocity();
-                ballRb.velocity = bounceVelocity + surfaceVelocity;              
+                ballRb.velocity = bounceVelocity + surfaceVelocity;
+                surface.PlayAudio();
             }
         }
     }
@@ -68,7 +69,7 @@ public class BouncingBall : MonoBehaviour
         Debug.DrawLine(startPosition, (startPosition + direction) * scale, color, float.PositiveInfinity);
     }
 
-    IEnumerator enableBounceAfterSeconds(float time)
+    IEnumerator EnableBounceAfterSeconds(float time)
     {
         yield return new WaitForSeconds(time);
         canBounce = true;
