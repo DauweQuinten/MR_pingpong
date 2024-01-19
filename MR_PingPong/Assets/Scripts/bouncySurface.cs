@@ -12,7 +12,8 @@ using UnityEngine;
 /// </summary>
 public class bouncySurface : MonoBehaviour
 {
-    [SerializeField, Range(0, 1)] private float _bounciness = 0.5f;
+    [SerializeField, Tooltip("Value of bounciness. Should be between 0 and 1 for normal behaviour but can be bigger if you want to apply an extra force")]
+    private float _bounciness = 0.5f;
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _prevPos = Vector3.zero;
     private AudioSource _audioSource = null;
@@ -38,14 +39,14 @@ public class bouncySurface : MonoBehaviour
     }
 
     /// <summary>
-    /// Set the bounciness of the surface and return the new value. This value should be between 0 and 1. If not, -1 will be returned.
+    /// Set the bounciness of the surface and return the new value.
     /// </summary>
-    /// <param name="value">new bounciness value between 0 and 1</param>
+    /// <param name="value">new bounciness value</param>
     /// <returns></returns>
     public float SetBounciness(float value)
     {
-        if (value > 1 || value < 0) return -1;
-        else return value;
+        _bounciness = value;
+        return _bounciness;
     }
 
     /// <summary>
