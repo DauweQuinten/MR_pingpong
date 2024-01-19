@@ -16,6 +16,8 @@ public class ObjectSpawner : MonoBehaviour
     BoxCollider tableBounds;
     [SerializeField, Tooltip("If true, debug spheres will spawn at the scaled spawn locations")]
     bool debugModeActive = false;
+    [SerializeField, Tooltip("If true, the spawned object will be rescaled to fit the scaled tabel.")]
+    bool rescaleSpawnedObjectSize = false;
 
     Vector3 initTableSize;
     Vector3 currentTableSize;
@@ -61,6 +63,19 @@ public class ObjectSpawner : MonoBehaviour
         debugSphere.transform.localPosition = position;
     }
 
+    void Rescale(GameObject spawned)
+    {
+        if (spawned != null)
+        {
+            Vector3 currentSize = spawned.transform.localScale;
+            Vector3 newSize = new Vector3(currentSize.x / tableScaleValues.x, currentSize.y / tableScaleValues.y, currentSize.z / tableScaleValues.z);
+            spawned.transform.localScale = newSize;
+
+            Debug.Log($"Prefab size: {currentSize}");
+            Debug.Log($"New size: {newSize}");
+        }
+    }
+
     public GameObject SpawnObjectAtRescaledSpawnPoint()
     {
         RescaleSpawnCoordinates();
@@ -74,6 +89,8 @@ public class ObjectSpawner : MonoBehaviour
         spawnedObject.transform.SetParent(transform);
         spawnedObject.transform.localPosition = spawnLocation.position;
         spawnedObject.transform.rotation = spawnLocation.rotation;
+
+        if (rescaleSpawnedObjectSize) Rescale(spawnedObject);
         return spawnedObject;
     }
 }

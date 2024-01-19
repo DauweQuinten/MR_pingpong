@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class NetSpawner : MonoBehaviour
@@ -10,7 +11,14 @@ public class NetSpawner : MonoBehaviour
 
     private void Start()
     {
-        if(transform.childCount < 1)
+        foreach(Transform child in transform)
+        {
+            if(child.name == "Spawned net")
+            {
+                net = child.gameObject;             
+            }
+        }
+        if(net == null)
         {
             SpawnNet();
         }
@@ -19,6 +27,7 @@ public class NetSpawner : MonoBehaviour
     void SpawnNet()
     {
         net = Instantiate(netPrefab, this.transform);
+        net.name = "Spawned net";
         MeshRenderer renderer = net.GetComponentInChildren<MeshRenderer>();
         renderer.enabled = false;
         RescaleNet();
