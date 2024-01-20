@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// This component allows you to select MRUK anchors with a touch controller.
@@ -20,9 +21,10 @@ public class ControllerRaySelector : MonoBehaviour
     private bool _isLeftHanded = false;
     [SerializeField, Tooltip("if true, the last selected anchor stays highlighted until another anchor gets selected")]
     private bool _keepLastValidSelected = false;
-
+    
     [SerializeField]
     private UnityEvent<MRUKAnchor> OnAnchorClicked;
+    private GameObject _sphereIndicator = null;
 
     #endregion
 
@@ -37,11 +39,13 @@ public class ControllerRaySelector : MonoBehaviour
     private void Start()
     {
         SetController(_isLeftHanded);
+        ClearSelection();
     }
 
     void Update()
     {
         CheckMRUKRayCastFromController(_controller, out RaycastHit hit, out MRUKAnchor anchorHit);
+        DrawIndicatorSphere(hit.point);
         HandleAnchorSelection(anchorHit);
         HandleAnchorHighlighting();
         HandleInputEvents();
@@ -50,6 +54,7 @@ public class ControllerRaySelector : MonoBehaviour
     private void OnDisable()
     {
         HighlightMRUKAnchor(GetSelectedAnchor(), false);
+        Destroy(_sphereIndicator);
     }
 
     #region Handler functions
@@ -141,6 +146,8 @@ public class ControllerRaySelector : MonoBehaviour
 
     void HighlightMRUKAnchor(MRUKAnchor anchor, bool isHighlighted)
     {
+        if (!_highlightMaterial) return;
+        
         MeshRenderer[] renderers = anchor?.gameObject.GetComponentsInChildren<MeshRenderer>();
         if (!anchor || renderers.Length < 1) return;
 
@@ -160,6 +167,26 @@ public class ControllerRaySelector : MonoBehaviour
                 renderer.enabled = false;
             }
         }
+    }
+
+    void ClearSelection()
+    {
+        if(_currentSelectedAnchor != null)
+        {
+            _currentSelectedAnchor = null;
+            HighlightMRUKAnchor(_currentSelectedAnchor, false);
+        }
+    }
+
+    void DrawIndicatorSphere(Vector3 position)
+    {
+        if (!_sphereIndicator)
+        {
+            _sphereIndicator = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _sphereIndicator.transform.localScale *= 0.1f;
+            _sphereIndicator.GetComponent<MeshRenderer>().material.color = Color.cyan;
+        }
+        _sphereIndicator.transform.position = position;
     }
 
     #endregion

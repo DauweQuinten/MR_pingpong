@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlaceableObject : MonoBehaviour
 {
     [HideInInspector] public bool isPlaced = false;
-    [SerializeField] Material originalMaterial = null;
+    [SerializeField] private Material _originalMaterial = null;
 
     public GameObject PlaceObject()
     {
@@ -33,7 +33,7 @@ public class PlaceableObject : MonoBehaviour
         {
             foreach(MeshRenderer renderer in renderers)
             {
-                renderer.sharedMaterial = originalMaterial;
+                renderer.sharedMaterial = _originalMaterial;
                 renderer.enabled = true;
             }
         }

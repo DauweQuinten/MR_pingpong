@@ -25382,7 +25382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _validLabels: 8
-  _highlightMaterial: {fileID: 2100000, guid: a31f7d6a7238ee947936c109226a1911, type: 2}
+  _highlightMaterial: {fileID: 2100000, guid: 01e3a1e93103f7e418f149f192a939e7, type: 2}
   _isLeftHanded: 1
   _keepLastValidSelected: 0
   OnAnchorClicked:

@@ -427,7 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
-  originalMaterial: {fileID: 2100000, guid: d148757cf1ccae84ba24fe306009a58c, type: 2}
+  _originalMaterial: {fileID: 2100000, guid: d148757cf1ccae84ba24fe306009a58c, type: 2}
 --- !u!1 &4756224752597245678
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 5ac31a2102c44454a90931093cbe3cac, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 5ac31a2102c44454a90931093cbe3cac, type: 3}
       propertyPath: m_Materials.Array.size

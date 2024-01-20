@@ -34,6 +34,7 @@ public class BouncingBall : MonoBehaviour
         }
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out bouncySurface surface) && _canBounce)
@@ -45,12 +46,6 @@ public class BouncingBall : MonoBehaviour
                 Vector3 surfaceVelocity = surface.GetSurfaceVelocity();
                 _ballRb.velocity = bounceVelocity + surfaceVelocity;
                 surface.PlayAudio();
-
-                Debug.Log($"Bounced on {surface.transform.parent.name}");
-                Debug.Log($"Bounce velocity on {surface.transform.parent.name}: {bounceVelocity}");
-                Debug.Log($"Surface velocity of {surface.transform.parent.name}: {surfaceVelocity}");
-                Debug.Log($"Calculated velocity after bounce on {surface.transform.parent.name} : {bounceVelocity + surfaceVelocity}");
-                Debug.Log($"Current velocity equals {_ballRb.velocity} after bounce on {surface.transform.parent.name}");
             }
         }
     }
