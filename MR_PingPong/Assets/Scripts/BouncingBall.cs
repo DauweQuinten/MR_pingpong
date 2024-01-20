@@ -14,37 +14,43 @@ using System.Text;
 public class BouncingBall : MonoBehaviour
 {
     [SerializeField, Tooltip("If true, the velocity vectors will be drawn in the inspector.")]
-    bool drawDebugVectors = false;
-    Rigidbody ballRb;
-    Vector3 ballVelocity = Vector3.zero;
-    bool canBounce = false;
+    private bool _drawDebugVectors = false;
+    private Rigidbody _ballRb;
+    private Vector3 _ballVelocity = Vector3.zero;
+    private bool _canBounce = false;
 
     private void Start()
     {
         // Give the object time to spawn without bouncing away
         StartCoroutine(EnableBounceAfterSeconds(1f));
-        ballRb = GetComponent<Rigidbody>();
+        _ballRb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
-        if (ballRb)
+        if (_ballRb)
         {
-            ballVelocity = ballRb.velocity;
+            _ballVelocity = _ballRb.velocity;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.TryGetComponent(out bouncySurface surface) && canBounce)
+        if (collision.gameObject.TryGetComponent(out bouncySurface surface) && _canBounce)
         {
             GameObject collisionObject = collision.gameObject;
             if (collisionObject != null)
             {
-                Vector3 bounceVelocity = CalculateBounceVelocity(collision, ballVelocity, surface);
+                Vector3 bounceVelocity = CalculateBounceVelocity(collision, _ballVelocity, surface);
                 Vector3 surfaceVelocity = surface.GetSurfaceVelocity();
-                ballRb.velocity = bounceVelocity + surfaceVelocity;
+                _ballRb.velocity = bounceVelocity + surfaceVelocity;
                 surface.PlayAudio();
+
+                Debug.Log($"Bounced on {surface.transform.parent.name}");
+                Debug.Log($"Bounce velocity on {surface.transform.parent.name}: {bounceVelocity}");
+                Debug.Log($"Surface velocity of {surface.transform.parent.name}: {surfaceVelocity}");
+                Debug.Log($"Calculated velocity after bounce on {surface.transform.parent.name} : {bounceVelocity + surfaceVelocity}");
+                Debug.Log($"Current velocity equals {_ballRb.velocity} after bounce on {surface.transform.parent.name}");
             }
         }
     }
@@ -54,7 +60,7 @@ public class BouncingBall : MonoBehaviour
         Vector3 normal = collision.GetContact(0).normal;
         Vector3 velocityAfterBounce = Vector3.Reflect(velocityBeforeCollision, normal);
 
-        if (drawDebugVectors)
+        if (_drawDebugVectors)
         {
             DebugDrawDirectionOfVector(collision.GetContact(0).point, normal, Color.blue, 1f);
             DebugDrawDirectionOfVector(collision.GetContact(0).point, velocityBeforeCollision, Color.green, 1f);
@@ -72,6 +78,6 @@ public class BouncingBall : MonoBehaviour
     IEnumerator EnableBounceAfterSeconds(float time)
     {
         yield return new WaitForSeconds(time);
-        canBounce = true;
+        _canBounce = true;
     }
 }

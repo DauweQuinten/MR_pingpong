@@ -5,35 +5,51 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// This component allows you to select MRUK anchors with a touch controller.
+/// </summary>
 public class ControllerRaySelector : MonoBehaviour
 {
     #region inspector variables
-    [SerializeField, Tooltip("Only select MRUK anchors with these labels")] MRUKAnchor.SceneLabels validLabels;
-    [SerializeField, Tooltip("This material gets applied to the MRUK anchor on hover. Let empty if you don't want to highlight the anchor")] Material highlightMaterial = null;
-    [SerializeField, Tooltip("Toggle between left and right controller")] bool isLeftHanded = false;
-    [SerializeField, Tooltip("if true, the last selected anchor stays highlighted until another anchor gets selected")] bool keepLastValidSelected = false;
-    [SerializeField] UnityEvent<MRUKAnchor> OnAnchorClicked;
+
+    [SerializeField, Tooltip("Only select MRUK anchors with these labels")]
+    private MRUKAnchor.SceneLabels _validLabels;
+    [SerializeField, Tooltip("This material gets applied to the MRUK anchor on hover. Let empty if you don't want to highlight the anchor")]
+    private Material _highlightMaterial = null;
+    [SerializeField, Tooltip("Toggle between left and right controller")]
+    private bool _isLeftHanded = false;
+    [SerializeField, Tooltip("if true, the last selected anchor stays highlighted until another anchor gets selected")]
+    private bool _keepLastValidSelected = false;
+
+    [SerializeField]
+    private UnityEvent<MRUKAnchor> OnAnchorClicked;
+
     #endregion
 
     #region private variables
-    OVRInput.Controller controller = OVRInput.Controller.RTouch;
-    MRUKAnchor currentSelectedAnchor = null;
-    MRUKAnchor prevSelectedAnchor = null;
-    MRUKAnchor lastSelectedAnchor = null;
-    MRUKAnchor prevLastSelectedAnchor = null;
+    private OVRInput.Controller _controller = OVRInput.Controller.RTouch;
+    private MRUKAnchor _currentSelectedAnchor = null;
+    private MRUKAnchor _prevSelectedAnchor = null;
+    private MRUKAnchor _lastSelectedAnchor = null;
+    private MRUKAnchor _prevLastSelectedAnchor = null;
     #endregion
 
     private void Start()
     {
-        SetController(isLeftHanded);
+        SetController(_isLeftHanded);
     }
 
     void Update()
     {
-        CheckMRUKRayCastFromController(controller, out RaycastHit hit, out MRUKAnchor anchorHit);
+        CheckMRUKRayCastFromController(_controller, out RaycastHit hit, out MRUKAnchor anchorHit);
         HandleAnchorSelection(anchorHit);
         HandleAnchorHighlighting();
         HandleInputEvents();
+    }
+
+    private void OnDisable()
+    {
+        HighlightMRUKAnchor(GetSelectedAnchor(), false);
     }
 
     #region Handler functions
@@ -42,43 +58,43 @@ public class ControllerRaySelector : MonoBehaviour
     {
         if (anchorHit != null)
         {
-            bool anchorIsValid = validLabels.HasFlag(anchorHit.GetLabelsAsEnum());
+            bool anchorIsValid = _validLabels.HasFlag(anchorHit.GetLabelsAsEnum());
             if (anchorIsValid)
             {
-                currentSelectedAnchor = anchorHit;
-                lastSelectedAnchor = anchorHit;
+                _currentSelectedAnchor = anchorHit;
+                _lastSelectedAnchor = anchorHit;
             }
             else
             {
-                currentSelectedAnchor = null;
+                _currentSelectedAnchor = null;
             }
         }
         else
         {
-            currentSelectedAnchor = null;
+            _currentSelectedAnchor = null;
         }
     }
 
     void HandleAnchorHighlighting()
     {
-        if (highlightMaterial != null)
+        if (_highlightMaterial != null)
         {
-            if (keepLastValidSelected)
+            if (_keepLastValidSelected)
             {
-                if (lastSelectedAnchor != prevLastSelectedAnchor)
+                if (_lastSelectedAnchor != _prevLastSelectedAnchor)
                 {
-                    HighlightMRUKAnchor(lastSelectedAnchor, true);
-                    HighlightMRUKAnchor(prevLastSelectedAnchor, false);
-                    prevLastSelectedAnchor = lastSelectedAnchor;
+                    HighlightMRUKAnchor(_lastSelectedAnchor, true);
+                    HighlightMRUKAnchor(_prevLastSelectedAnchor, false);
+                    _prevLastSelectedAnchor = _lastSelectedAnchor;
                 }
             }
             else
             {
-                if (currentSelectedAnchor != prevSelectedAnchor)
+                if (_currentSelectedAnchor != _prevSelectedAnchor)
                 {
-                    HighlightMRUKAnchor(prevSelectedAnchor, false);
-                    HighlightMRUKAnchor(currentSelectedAnchor, true);
-                    prevSelectedAnchor = currentSelectedAnchor;
+                    HighlightMRUKAnchor(_prevSelectedAnchor, false);
+                    HighlightMRUKAnchor(_currentSelectedAnchor, true);
+                    _prevSelectedAnchor = _currentSelectedAnchor;
                 }
             }
         }
@@ -96,10 +112,6 @@ public class ControllerRaySelector : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        HighlightMRUKAnchor(GetSelectedAnchor(), false);
-    }
 
     #endregion
 
@@ -119,11 +131,11 @@ public class ControllerRaySelector : MonoBehaviour
     {
         if (isLeftHanded)
         {
-            controller = OVRInput.Controller.LTouch;
+            _controller = OVRInput.Controller.LTouch;
         }
         else
         {
-            controller = OVRInput.Controller.RTouch;
+            _controller = OVRInput.Controller.RTouch;
         }
     }
 
@@ -136,7 +148,7 @@ public class ControllerRaySelector : MonoBehaviour
         {
             foreach(MeshRenderer renderer in renderers)
             {
-                renderer.material = highlightMaterial;
+                renderer.material = _highlightMaterial;
                 renderer.enabled = true;
             }
         }
@@ -144,25 +156,41 @@ public class ControllerRaySelector : MonoBehaviour
         {
             foreach (MeshRenderer renderer in renderers)
             {
-                renderer.material = highlightMaterial;
+                renderer.material = _highlightMaterial;
                 renderer.enabled = false;
             }
         }
     }
 
+    #endregion
+
+    #region public functions
+
+    /// <summary>
+    /// Get the currently hovered valid MRUK anchor
+    /// </summary>
+    /// <returns></returns>
     public MRUKAnchor GetCurrentHoveredAnchor()
     {
-        return currentSelectedAnchor;
+        return _currentSelectedAnchor;
     }
 
+    /// <summary>
+    /// Get the last hovered valid MRUK anchor
+    /// </summary>
+    /// <returns></returns>
     public MRUKAnchor GetLastHoveredAnchor()
     {
-        return lastSelectedAnchor;
+        return _lastSelectedAnchor;
     }
 
+    /// <summary>
+    /// Get the currently selected MRUK anchor
+    /// </summary>
+    /// <returns></returns>
     public MRUKAnchor GetSelectedAnchor()
     {
-        return keepLastValidSelected ? lastSelectedAnchor : currentSelectedAnchor;     
+        return _keepLastValidSelected ? _lastSelectedAnchor : _currentSelectedAnchor;     
     }
 
     #endregion

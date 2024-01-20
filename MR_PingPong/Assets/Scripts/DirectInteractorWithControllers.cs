@@ -2,60 +2,71 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This component allows you to grab objects
+/// </summary>
 [RequireComponent(typeof(SphereCollider))]
 public class DirectInteractorWithControllers : MonoBehaviour
 {
-    private List<GameObject> objectsInRange = new List<GameObject>();
-    private GrabbableObjectWithControllers grabbable = null;
-    private Vector3 controllerVelocity = Vector3.zero;
-    private Vector3 controllerPrevPos = Vector3.zero;
-    [SerializeField, Tooltip("Multiplier of force of throw when released")] float velocityMultiplier = 1f;
+    private List<GameObject> _objectsInRange = new List<GameObject>();
+    private GrabbableObjectWithControllers _grabbable = null;
+    private Vector3 _controllerVelocity = Vector3.zero;
+    private Vector3 _controllerPrevPos = Vector3.zero;
 
+    [SerializeField, Tooltip("Multiplier of force of throw when released")]
+    private float _velocityMultiplier = 1f;
+
+    /// <summary>
+    /// Grab the object in range
+    /// </summary>
     public void Grab()
     {
-        if (grabbable || objectsInRange.Count == 0) return;
+        if (_grabbable || _objectsInRange.Count == 0) return;
         
-        GameObject objectToGrab = objectsInRange.ToArray()[0];
-        if(objectToGrab.TryGetComponent(out grabbable))
+        GameObject objectToGrab = _objectsInRange.ToArray()[0];
+        if(objectToGrab.TryGetComponent(out _grabbable))
         {
-            grabbable.SetGrabbedState(true, this);
-            grabbable.Grab();       
+            _grabbable.Grab(this);       
         }  
     }
 
+    /// <summary>
+    /// Release the grabbed object
+    /// </summary>
     public void Release()
     {
-        if (grabbable == null) return;
-        grabbable.SetGrabbedState(false, this);
-        grabbable.Release(controllerVelocity * velocityMultiplier);
-        grabbable = null;
+        if (_grabbable == null) return;
+        _grabbable.Release(this, _controllerVelocity * _velocityMultiplier);
+        _grabbable = null;
     }
 
+    /// <summary>
+    /// Reset the state of the interactor. This is needed if the object is destroyed or grabbed by another DirectInteractor.
+    /// </summary>
+    public void ResetInteractor()
+    {
+        _grabbable = null;
+    }
 
     private void Update()
     {
-        controllerVelocity = (transform.position - controllerPrevPos) / Time.deltaTime;
-        controllerPrevPos = transform.position;
+        _controllerVelocity = (transform.position - _controllerPrevPos) / Time.deltaTime;
+        _controllerPrevPos = transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!objectsInRange.Contains(other.gameObject))
+        if (!_objectsInRange.Contains(other.gameObject))
         {
-            objectsInRange.Add(other.gameObject);
+            _objectsInRange.Add(other.gameObject);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (objectsInRange.Contains(other.gameObject))
+        if (_objectsInRange.Contains(other.gameObject))
         {
-            objectsInRange.Remove(other.gameObject);
+            _objectsInRange.Remove(other.gameObject);
         }
-    }
-
-    public void ResetGrabbable()
-    {
-        grabbable = null;
     }
 }

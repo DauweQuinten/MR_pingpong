@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// This component will check if the user is using hand tracking or a touch controller.
+/// An event will be invoked when the user starts using hand tracking, touch controller or when no controller is found.
+/// </summary>
 public class CheckControllerVsHandsEvents : MonoBehaviour
 {
     public UnityEvent OnHandTrackingStarted;
     public UnityEvent OnTouchControllerActivated;
     public UnityEvent OnNoActiveControllerFound;
 
-
-    private bool isHandTrackingActive = false;
-    private bool isTouchControllerActivated = false;
+    private bool _isHandTrackingActive = false;
+    private bool _isTouchControllerActivated = false;
 
 
     // Update is called once per frame
@@ -19,32 +22,30 @@ public class CheckControllerVsHandsEvents : MonoBehaviour
     {
         if (OVRInput.IsControllerConnected(OVRInput.Controller.Hands))
         {
-            if (!isHandTrackingActive)
+            if (!_isHandTrackingActive)
             {
-                isHandTrackingActive = true;
-                isTouchControllerActivated = false;
+                _isHandTrackingActive = true;
+                _isTouchControllerActivated = false;
                 OnHandTrackingStarted.Invoke();
             }
         }
         else if (OVRInput.IsControllerConnected(OVRInput.Controller.Touch))
         {
-            if (!isTouchControllerActivated)
+            if (!_isTouchControllerActivated)
             {
-                isTouchControllerActivated = true;
-                isHandTrackingActive = false;
+                _isTouchControllerActivated = true;
+                _isHandTrackingActive = false;
                 OnTouchControllerActivated.Invoke();
             }
         }
         else
         {
-            if(isTouchControllerActivated || isHandTrackingActive)
+            if(_isTouchControllerActivated || _isHandTrackingActive)
             {
-                isTouchControllerActivated = false;
-                isHandTrackingActive = false;
+                _isTouchControllerActivated = false;
+                _isHandTrackingActive = false;
                 OnNoActiveControllerFound.Invoke();
             }
         }
-
-
     }
 }

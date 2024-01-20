@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// Start spawning the attributes on a selected table
+    /// </summary>
+    /// <param name="selectedTable"></param>
    public void StartSpawningAttributes(GameObject selectedTable)
    {
         ObjectSpawner[] spawners = selectedTable.GetComponentsInChildren<ObjectSpawner>();

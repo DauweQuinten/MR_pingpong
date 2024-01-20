@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12caa3c0fa01fad4180d65ec3572cf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityMultiplier: 1.5
+  _velocityMultiplier: 1
 --- !u!1 &116839755
 GameObject:
   m_ObjectHideFlags: 0
@@ -20639,7 +20639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12caa3c0fa01fad4180d65ec3572cf28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocityMultiplier: 1.5
+  _velocityMultiplier: 1
 --- !u!135 &1575822275
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -25381,10 +25381,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9e45aa97e2d85e4998a9544129f6a3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  validLabels: 8
-  highlightMaterial: {fileID: 2100000, guid: 01e3a1e93103f7e418f149f192a939e7, type: 2}
-  isLeftHanded: 1
-  keepLastValidSelected: 0
+  _validLabels: 8
+  _highlightMaterial: {fileID: 2100000, guid: a31f7d6a7238ee947936c109226a1911, type: 2}
+  _isLeftHanded: 1
+  _keepLastValidSelected: 0
   OnAnchorClicked:
     m_PersistentCalls:
       m_Calls:
