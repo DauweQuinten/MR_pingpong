@@ -209,6 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bounciness: 1
+  _compensateFastMovingCollisions: 1
 --- !u!82 &2424191920474150269
 AudioSource:
   m_ObjectHideFlags: 0

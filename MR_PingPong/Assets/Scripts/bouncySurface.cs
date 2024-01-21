@@ -17,8 +17,16 @@ public class bouncySurface : MonoBehaviour
     private Vector3 _velocity = Vector3.zero;
     private Vector3 _prevPos = Vector3.zero;
     private AudioSource _audioSource = null;
-    //private bool _isBouncing = false;
-    //public bool isBouncing {get {return _isBouncing;} }
+    [SerializeField, Tooltip("Recalculate the position of the collided object.")]
+    private bool _compensateFastMovingCollisions;
+
+    public bool compensateFastMovingCollisions
+    {
+        get
+        {
+            return _compensateFastMovingCollisions;
+        }
+    }
 
     private void Start()
     {

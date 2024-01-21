@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33483cd40e1945e49b93adcde9e04caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bounciness: 1
+  _bounciness: 0.8
 --- !u!82 &5131364579738054676
 AudioSource:
   m_ObjectHideFlags: 0

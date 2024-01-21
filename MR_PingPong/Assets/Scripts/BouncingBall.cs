@@ -34,18 +34,24 @@ public class BouncingBall : MonoBehaviour
         }
     }
 
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.TryGetComponent(out bouncySurface surface) && _canBounce)
         {
+            surface.PlayAudio();
             GameObject collisionObject = collision.gameObject;
+
             if (collisionObject != null)
             {
                 Vector3 bounceVelocity = CalculateBounceVelocity(collision, _ballVelocity, surface);
                 Vector3 surfaceVelocity = surface.GetSurfaceVelocity();
-                _ballRb.velocity = bounceVelocity + surfaceVelocity;
-                surface.PlayAudio();
+                Vector3 outgoingVelocity = bounceVelocity + surfaceVelocity;
+                if (surface.compensateFastMovingCollisions)
+                {
+                    transform.position += outgoingVelocity.normalized * 0.1f;
+                }
+
+                _ballRb.velocity = outgoingVelocity;
             }
         }
     }
