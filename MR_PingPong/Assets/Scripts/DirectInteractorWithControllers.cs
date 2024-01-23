@@ -56,9 +56,12 @@ public class DirectInteractorWithControllers : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!_objectsInRange.Contains(other.gameObject))
+        if(other.TryGetComponent(out GrabbableObjectWithControllers grabbableInRange))
         {
-            _objectsInRange.Add(other.gameObject);
+            if (!_objectsInRange.Contains(other.gameObject))
+            {
+                _objectsInRange.Add(other.gameObject);
+            }
         }
     }
 

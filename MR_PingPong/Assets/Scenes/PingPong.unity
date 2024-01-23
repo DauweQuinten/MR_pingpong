@@ -1914,7 +1914,7 @@ GameObject:
   - component: {fileID: 115913681}
   - component: {fileID: 115913683}
   - component: {fileID: 115913684}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Direct Interactor Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2015,7 +2015,7 @@ GameObject:
   - component: {fileID: 118053208}
   - component: {fileID: 118053212}
   m_Layer: 0
-  m_Name: '[BuildingBlock] Anchor Collider Spawner'
+  m_Name: '[BuildingBlock] Anchor Collider Spawner_pingpong'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2535,7 +2535,6 @@ GameObject:
   m_Component:
   - component: {fileID: 138501026}
   - component: {fileID: 138501027}
-  - component: {fileID: 138501028}
   m_Layer: 0
   m_Name: Items spawner
   m_TagString: Untagged
@@ -2570,32 +2569,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d14e43228043c04db9e374568cb89a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnObject: {fileID: 535057144581163091, guid: 8f8ab173af86cea4eb044c5d6c4bb8e9, type: 3}
+  SpawnObject: {fileID: 3558624608201161785, guid: d2ff5ca4ff2067f4da490ebec7d96db3, type: 3}
   SpawnAmount: 1
   MaxIterations: 1000
-  SpawnLocations: 3
-  Labels: 8
-  CheckOverlaps: 1
-  OverrideBounds: -1
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &138501028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 138501025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d14e43228043c04db9e374568cb89a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnObject: {fileID: 1008412959570956561, guid: 60dc0a50cb38dd44fa1f8f5e115bc6c7, type: 3}
-  SpawnAmount: 1
-  MaxIterations: 1000
-  SpawnLocations: 3
+  SpawnLocations: 1
   Labels: 8
   CheckOverlaps: 1
   OverrideBounds: -1
@@ -3824,6 +3801,136 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219503648}
   m_CullTransparentMesh: 1
+--- !u!1 &220813144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 220813149}
+  - component: {fileID: 220813148}
+  - component: {fileID: 220813147}
+  - component: {fileID: 220813146}
+  - component: {fileID: 220813145}
+  m_Layer: 0
+  m_Name: '[BuildingBlock] Anchor Collider Spawner_beerpong'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &220813145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220813144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bec3bd87c4b1cb43938ffec6fc08b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnitureSpawner: {fileID: 220813147}
+--- !u!114 &220813146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220813144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c55c994d76dd43da9cfea6b3e8f32b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneLoadedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 220813147}
+        m_TargetAssemblyTypeName: Meta.XR.SceneToolkit.AnchorPrefabSpawner, meta.xr.scenetoolkit
+        m_MethodName: SpawnPrefabs
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &220813147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220813144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d607ba0c0320e446ba9d62671d9d7a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PrefabsToSpawn:
+  - Labels: 8293
+    Prefabs:
+    - {fileID: 609593515707577405, guid: bc1f7f405a999a64fb7188dfb8852d01, type: 3}
+    MatchAspectRatio: 0
+    CalculateFacingDirection: 0
+    Scaling: 0
+    Alignment: 0
+    IgnorePrefabSize: 0
+  - Labels: 8080
+    Prefabs:
+    - {fileID: 5068584792260383046, guid: 1336a54cf90bef0468c5bb0d360edabb, type: 3}
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 0
+    Scaling: 0
+    Alignment: 0
+    IgnorePrefabSize: 0
+  - Labels: 8
+    Prefabs:
+    - {fileID: 4339447609627425109, guid: 7050052c27948f44a9a85044619b96f7, type: 3}
+    MatchAspectRatio: 1
+    CalculateFacingDirection: 0
+    Scaling: 0
+    Alignment: 0
+    IgnorePrefabSize: 0
+  onPrefabSpawned:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &220813148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220813144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: 3bd6c700-1fcb-41ff-b30b-0bc001d43048
+  instanceId: a3221631-f551-4409-9c4f-045ab25effb2
+  version: 1
+--- !u!4 &220813149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220813144}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &222812047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5887,31 +5994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneLoadedEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 138501027}
-        m_TargetAssemblyTypeName: FindSpawnPositions, meta.xr.mrutilitykit
-        m_MethodName: StartSpawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 138501028}
-        m_TargetAssemblyTypeName: FindSpawnPositions, meta.xr.mrutilitykit
-        m_MethodName: StartSpawn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   EnableWorldLock: 1
   SceneSettings:
     DataSource: 0
@@ -20645,7 +20728,7 @@ GameObject:
   - component: {fileID: 1575822273}
   - component: {fileID: 1575822274}
   - component: {fileID: 1575822275}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Direct Interactor Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29177,6 +29260,7 @@ SceneRoots:
   - {fileID: 1321322807}
   - {fileID: 783586303}
   - {fileID: 118053211}
+  - {fileID: 220813149}
   - {fileID: 1607525187}
   - {fileID: 1909043349}
   - {fileID: 863433684}

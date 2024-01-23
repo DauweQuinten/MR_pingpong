@@ -77,6 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bounciness: 0.8
+  _compensateFastMovingCollisions: 0
 --- !u!82 &5131364579738054676
 AudioSource:
   m_ObjectHideFlags: 0
@@ -392,7 +393,7 @@ GameObject:
   - component: {fileID: 5954447371460359054}
   - component: {fileID: 825891662798465196}
   m_Layer: 0
-  m_Name: VH_TABLE
+  m_Name: VH_TABLE_PINGPONG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
