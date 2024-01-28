@@ -1,1 +1,1 @@
-# Mixed_Reality_pingpong
+# Research project: Mixed_Reality_pingpong
